@@ -4,6 +4,12 @@ A production-quality full-stack web application that helps recruiters add candid
 
 ---
 
+## 🌐 Live Demo
+- **Frontend (Vercel):** [https://ai-resume-zeta-three.vercel.app/](https://ai-resume-zeta-three.vercel.app/)
+- **Backend Health Check (Render):** [https://ai-resume-nnap.onrender.com/api/health](https://ai-resume-nnap.onrender.com/api/health)
+
+---
+
 ## 🏗️ Architecture
 
 ```
