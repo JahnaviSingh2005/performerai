@@ -3,9 +3,9 @@ import { Bell, Search } from 'lucide-react';
 
 const pageTitles = {
   '/': 'Dashboard',
-  '/candidates': 'Candidates',
-  '/candidates/new': 'Add Candidate',
-  '/match': 'Job Matching',
+  '/candidates': 'Employees',
+  '/candidates/new': 'Register Employee',
+  '/match': 'AI Recommendations',
 };
 
 /**
@@ -13,7 +13,7 @@ const pageTitles = {
  */
 export default function Navbar() {
   const location = useLocation();
-  const title = pageTitles[location.pathname] || 'HireAI';
+  const title = pageTitles[location.pathname] || 'PerformAI';
 
   return (
     <header className="sticky top-0 z-30 h-16 bg-surface-950/80 backdrop-blur-xl border-b border-surface-700/50 flex items-center justify-between px-8">

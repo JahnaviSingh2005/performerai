@@ -9,9 +9,9 @@ import {
 
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/candidates', label: 'Candidates', icon: Users },
-  { path: '/candidates/new', label: 'Add Candidate', icon: UserPlus },
-  { path: '/match', label: 'Job Matching', icon: Target },
+  { path: '/candidates', label: 'Employees', icon: Users },
+  { path: '/candidates/new', label: 'Register Employee', icon: UserPlus },
+  { path: '/match', label: 'AI Recommendations', icon: Target },
 ];
 
 /**
@@ -29,9 +29,9 @@ export default function Sidebar() {
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold gradient-text">HireAI</h1>
+            <h1 className="text-lg font-bold gradient-text">PerformAI</h1>
             <p className="text-[10px] text-surface-500 uppercase tracking-widest">
-              Smart Recruiting
+              Employee Analytics
             </p>
           </div>
         </Link>

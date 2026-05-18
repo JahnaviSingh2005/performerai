@@ -42,15 +42,15 @@ export default function Dashboard() {
           <div className="flex items-center gap-3 mb-2">
             <Sparkles className="w-6 h-6 text-primary-400" />
             <span className="text-xs font-semibold uppercase tracking-widest text-primary-400">
-              AI-Powered Recruiting
+              AI-Powered Analytics
             </span>
           </div>
           <h1 className="text-3xl font-bold text-surface-100 mb-2">
-            Welcome to <span className="gradient-text">HireAI</span>
+            Welcome to <span className="gradient-text">PerformAI</span>
           </h1>
           <p className="text-surface-400 max-w-xl">
-            Intelligent candidate shortlisting with rule-based matching and AI-enhanced ranking.
-            Find the best talent faster.
+            Intelligent employee performance analytics with AI-powered recommendations for promotions and training.
+            Optimize your workforce effectively.
           </p>
         </div>
       </div>
@@ -58,32 +58,32 @@ export default function Dashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Total Candidates"
+          title="Total Employees"
           value={stats.count}
           icon={Users}
           gradient="from-primary-500 to-primary-700"
           subtitle="In database"
         />
         <StatCard
-          title="Quick Match"
+          title="AI Analytics"
           value="AI"
           icon={Target}
           gradient="from-violet-500 to-purple-700"
           subtitle="Ready to analyze"
         />
         <StatCard
-          title="Matching Engine"
+          title="Recommendation Engine"
           value="Active"
           icon={TrendingUp}
           gradient="from-emerald-500 to-emerald-700"
-          subtitle="Rule-based + AI"
+          subtitle="Performance + AI"
         />
         <StatCard
-          title="Add New"
+          title="Register New"
           value="+"
           icon={UserPlus}
           gradient="from-amber-500 to-orange-600"
-          subtitle="Expand your pool"
+          subtitle="Add employee"
         />
       </div>
 
@@ -93,7 +93,7 @@ export default function Dashboard() {
         <div className="glass-card p-6">
           <div className="flex justify-between items-center mb-5">
             <h3 className="text-lg font-semibold text-surface-100">
-              Recent Candidates
+              Recent Employees
             </h3>
             <Link
               to="/candidates"
@@ -106,9 +106,9 @@ export default function Dashboard() {
           {recentCandidates.length === 0 ? (
             <div className="text-center py-8">
               <Users className="w-10 h-10 text-surface-600 mx-auto mb-3" />
-              <p className="text-surface-500 text-sm">No candidates yet</p>
+              <p className="text-surface-500 text-sm">No employees yet</p>
               <Link to="/candidates/new" className="btn-primary inline-flex mt-3 text-sm">
-                Add First Candidate
+                Register First Employee
               </Link>
             </div>
           ) : (
@@ -126,7 +126,7 @@ export default function Dashboard() {
                       {c.name}
                     </p>
                     <p className="text-xs text-surface-500">
-                      {c.experience}y exp · {c.skills?.length} skills
+                      {c.experience}/10 rating · {c.skills?.length} skills
                     </p>
                   </div>
                   <ArrowRight className="w-4 h-4 text-surface-600 group-hover:text-primary-400 transition-colors" />
@@ -151,10 +151,10 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-surface-200">
-                  Add Candidate
+                  Register Employee
                 </p>
                 <p className="text-xs text-surface-500">
-                  Add a new candidate profile
+                  Register a new employee profile
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 ml-auto text-surface-600 group-hover:text-primary-400 transition-colors" />
@@ -169,10 +169,10 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-surface-200">
-                  Start Matching
+                  View Analytics
                 </p>
                 <p className="text-xs text-surface-500">
-                  Find the best candidates for your role
+                  Analyze employee performance metrics
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 ml-auto text-surface-600 group-hover:text-violet-400 transition-colors" />
@@ -187,10 +187,10 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-surface-200">
-                  AI Shortlisting
+                  AI Recommendations
                 </p>
                 <p className="text-xs text-surface-500">
-                  Let AI rank and explain candidates
+                  Get AI-powered promotion & training suggestions
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 ml-auto text-surface-600 group-hover:text-emerald-400 transition-colors" />

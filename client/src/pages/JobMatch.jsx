@@ -10,7 +10,7 @@ import SkillTag from '../components/SkillTag';
 import { useMatch } from '../hooks/useMatch';
 
 /**
- * Job Matching page — enter requirements, view rule-based + AI results.
+ * AI Recommendation page — enter criteria, view performance analysis + AI recommendations.
  */
 export default function JobMatch() {
   const {
@@ -81,10 +81,10 @@ export default function JobMatch() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-surface-100">
-              Job Requirements
+              Performance Criteria
             </h2>
             <p className="text-sm text-surface-400">
-              Define what you're looking for in a candidate
+              Define the skills and metrics to evaluate employees
             </p>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function JobMatch() {
             {/* Min Experience */}
             <div>
               <label className="block text-sm font-medium text-surface-300 mb-2">
-                Minimum Experience (years)
+                Minimum Performance Rating
               </label>
               <input
                 type="number"
@@ -147,7 +147,7 @@ export default function JobMatch() {
             {/* Job Description (for AI) */}
             <div>
               <label className="block text-sm font-medium text-surface-300 mb-2">
-                Job Description{' '}
+                Role Description{' '}
                 <span className="text-surface-500 text-xs">(for AI)</span>
               </label>
               <input
@@ -159,7 +159,7 @@ export default function JobMatch() {
                     jobDescription: e.target.value,
                   }))
                 }
-                placeholder="e.g. Senior Full-Stack Developer"
+                placeholder="e.g. Senior Full-Stack Developer role evaluation"
                 className="input-field"
               />
             </div>
@@ -184,7 +184,7 @@ export default function JobMatch() {
               ) : (
                 <>
                   <BarChart3 className="w-4 h-4" />
-                  Rule-Based Match
+                  Performance Analysis
                 </>
               )}
             </button>
@@ -200,7 +200,7 @@ export default function JobMatch() {
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  AI Shortlist
+                  AI Recommend
                 </>
               )}
             </button>
@@ -243,7 +243,7 @@ export default function JobMatch() {
               }`}
             >
               <Brain className="w-4 h-4" />
-              AI Results ({aiResults?.rankings?.length || 0})
+              AI Recommendations ({aiResults?.rankings?.length || 0})
             </button>
           </div>
 
@@ -254,19 +254,19 @@ export default function JobMatch() {
                 <p className="text-2xl font-bold text-emerald-400">
                   {summary.highMatch}
                 </p>
-                <p className="text-xs text-surface-500 mt-1">High Match</p>
+                <p className="text-xs text-surface-500 mt-1">High Performers</p>
               </div>
               <div className="glass-card p-4 text-center">
                 <p className="text-2xl font-bold text-amber-400">
                   {summary.mediumMatch}
                 </p>
-                <p className="text-xs text-surface-500 mt-1">Medium Match</p>
+                <p className="text-xs text-surface-500 mt-1">Average Performers</p>
               </div>
               <div className="glass-card p-4 text-center">
                 <p className="text-2xl font-bold text-red-400">
                   {summary.lowMatch}
                 </p>
-                <p className="text-xs text-surface-500 mt-1">Low Match</p>
+                <p className="text-xs text-surface-500 mt-1">Needs Training</p>
               </div>
             </div>
           )}
@@ -277,7 +277,7 @@ export default function JobMatch() {
               <div className="flex items-center gap-2 mb-2">
                 <Brain className="w-4 h-4 text-violet-400" />
                 <h4 className="text-sm font-semibold text-surface-200">
-                  AI Summary
+                  AI Recommendation Summary
                 </h4>
               </div>
               <p className="text-sm text-surface-400">{aiResults.summary}</p>

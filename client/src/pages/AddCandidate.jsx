@@ -7,7 +7,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { useCandidates } from '../hooks/useCandidates';
 
 /**
- * Add Candidate page with form validation and skills tag input.
+ * Employee Registration Form with validation and skills tag input.
  */
 export default function AddCandidate() {
   const navigate = useNavigate();
@@ -78,9 +78,9 @@ export default function AddCandidate() {
           <CheckCircle className="w-10 h-10 text-success-400" />
         </div>
         <h2 className="text-2xl font-bold text-surface-100 mb-2">
-          Candidate Added!
+          Employee Registered!
         </h2>
-        <p className="text-surface-400">Redirecting to candidates list...</p>
+        <p className="text-surface-400">Redirecting to employees list...</p>
       </div>
     );
   }
@@ -95,10 +95,10 @@ export default function AddCandidate() {
           </div>
           <div>
             <h2 className="text-xl font-bold text-surface-100">
-              Add New Candidate
+              Register New Employee
             </h2>
             <p className="text-sm text-surface-400">
-              Fill in the candidate's profile information
+              Fill in the employee's profile and performance details
             </p>
           </div>
         </div>
@@ -158,15 +158,15 @@ export default function AddCandidate() {
           {/* Experience */}
           <div>
             <label className="block text-sm font-medium text-surface-300 mb-2">
-              Years of Experience <span className="text-danger-400">*</span>
+              Performance Rating (1-10) <span className="text-danger-400">*</span>
             </label>
             <input
               type="number"
               min="0"
-              max="50"
+              max="10"
               value={formData.experience}
               onChange={(e) => handleChange('experience', e.target.value)}
-              placeholder="e.g. 3"
+              placeholder="e.g. 8"
               className={`input-field ${errors.experience ? 'border-danger-500/50' : ''}`}
             />
             {errors.experience && (
@@ -179,12 +179,12 @@ export default function AddCandidate() {
           {/* Bio */}
           <div>
             <label className="block text-sm font-medium text-surface-300 mb-2">
-              Bio / Projects
+              Performance Notes / Achievements
             </label>
             <textarea
               value={formData.bio}
               onChange={(e) => handleChange('bio', e.target.value)}
-              placeholder="Brief description of experience, notable projects, achievements..."
+              placeholder="Key achievements, completed projects, performance highlights..."
               rows={4}
               className="input-field resize-none"
               maxLength={2000}
@@ -205,7 +205,7 @@ export default function AddCandidate() {
             ) : (
               <>
                 <UserPlus className="w-5 h-5" />
-                Add Candidate
+                Register Employee
               </>
             )}
           </button>

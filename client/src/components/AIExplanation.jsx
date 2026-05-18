@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, Brain, AlertTriangle, CheckCircle, HelpCircle } from 'lucide-react';
 
 /**
- * Expandable accordion for AI-generated explanations and recommendations.
- * @param {Object} ranking - AI ranking data for a candidate
+ * Expandable accordion for AI-generated performance analysis and recommendations.
+ * @param {Object} ranking - AI ranking data for an employee
  */
 export default function AIExplanation({ ranking }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,7 +68,7 @@ export default function AIExplanation({ ranking }) {
             <div className="pt-4">
               <div className="flex items-center gap-2 text-sm font-medium text-surface-300 mb-2">
                 <CheckCircle className="w-4 h-4 text-primary-400" />
-                AI Analysis
+                AI Performance Analysis
               </div>
               <p className="text-sm text-surface-400 leading-relaxed pl-6">
                 {ranking.explanation}
@@ -81,7 +81,7 @@ export default function AIExplanation({ ranking }) {
             <div>
               <div className="flex items-center gap-2 text-sm font-medium text-surface-300 mb-2">
                 <AlertTriangle className="w-4 h-4 text-amber-400" />
-                Missing Skills
+                Missing Skills / Training Needs
               </div>
               <div className="flex flex-wrap gap-2 pl-6">
                 {ranking.missingSkills.map((skill) => (
@@ -101,7 +101,7 @@ export default function AIExplanation({ ranking }) {
             <div>
               <div className="flex items-center gap-2 text-sm font-medium text-surface-300 mb-2">
                 <HelpCircle className="w-4 h-4 text-violet-400" />
-                Interview Focus Areas
+                Recommended Focus Areas
               </div>
               <ul className="space-y-1 pl-6">
                 {ranking.interviewFocus.map((topic, i) => (

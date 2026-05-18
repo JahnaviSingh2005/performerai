@@ -7,7 +7,7 @@ import CandidateList from './pages/CandidateList';
 import JobMatch from './pages/JobMatch';
 
 /**
- * Main application component with layout and routing.
+ * Main application component — Employee Performance Analytics & Recommendation System.
  */
 export default function App() {
   return (
