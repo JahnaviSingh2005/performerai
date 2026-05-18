@@ -5,8 +5,8 @@ A production-quality full-stack web application that helps managers add employee
 ---
 
 ## 🌐 Live Demo
-- **Frontend (Vercel):** *Deploying Soon (See Deployment Guide)*
-- **Backend Health Check (Render):** *Deploying Soon (See Deployment Guide)*
+- **Frontend (Vercel):** [https://performerai.vercel.app](https://performerai.vercel.app)
+- **Backend Health Check (Render):** [https://performerai.onrender.com/api/health](https://performerai.onrender.com/api/health)
 
 ---
 
