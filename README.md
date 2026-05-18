@@ -1,18 +1,18 @@
-# HireAI — AI-Powered Candidate Shortlisting System
+# 🚀 PerformAI — Employee Performance Analytics & Recommendation System
 
-A production-quality full-stack web application that helps recruiters add candidates, define job requirements, and shortlist candidates using **rule-based matching** + **AI-enhanced ranking** via the OpenRouter API.
+A production-quality full-stack web application that helps managers add employees, define performance requirements, and evaluate employees using **rule-based matching** + **AI-enhanced performance recommendations** via the OpenRouter API.
 
 ---
 
 ## 🌐 Live Demo
-- **Frontend (Vercel):** [https://ai-resume-zeta-three.vercel.app/](https://ai-resume-zeta-three.vercel.app/)
-- **Backend Health Check (Render):** [https://ai-resume-nnap.onrender.com/api/health](https://ai-resume-nnap.onrender.com/api/health)
+- **Frontend (Vercel):** *Deploying Soon (See Deployment Guide)*
+- **Backend Health Check (Render):** *Deploying Soon (See Deployment Guide)*
 
 ---
 
 ## 🏗️ Architecture
 
-```
+```text
 ├── client/          → React + Vite + TailwindCSS frontend
 ├── server/          → Node.js + Express backend
 ├── .env             → Environment variables
@@ -20,7 +20,7 @@ A production-quality full-stack web application that helps recruiters add candid
 ```
 
 **Backend Pattern:** Controller → Service → Model (clean architecture)  
-**Frontend Pattern:** Pages → Components → Hooks → Services
+**Frontend Pattern:** Pages → Components → Hooks → Services → Context (Auth)
 
 ---
 
@@ -31,6 +31,7 @@ A production-quality full-stack web application that helps recruiters add candid
 | Frontend   | React 19, Vite, TailwindCSS 3, Axios, Recharts, Lucide Icons |
 | Backend    | Node.js, Express 4, Mongoose 8      |
 | Database   | MongoDB (Atlas or local)             |
+| Security   | JWT (JSON Web Tokens), Bcryptjs      |
 | AI         | OpenRouter API (configurable model)  |
 | Dev Tools  | Nodemon, Concurrently                |
 
@@ -57,21 +58,14 @@ Edit `.env` in the project root:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/candidate-shortlister
+MONGO_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/performai
 OPENROUTER_API_KEY=sk-or-v1-your-actual-key
-OPENROUTER_MODEL=openai/gpt-3.5-turbo
+OPENROUTER_MODEL=deepseek/deepseek-v4-flash:free
 CLIENT_URL=http://localhost:5173
+JWT_SECRET=your_super_secret_jwt_key_here
 ```
 
-### 3. Seed Database (Optional)
-
-```bash
-npm run seed
-```
-
-This adds 10 sample candidates for testing.
-
-### 4. Run Development Servers
+### 3. Run Development Servers
 
 ```bash
 npm run dev
@@ -81,60 +75,51 @@ This starts both:
 - **Backend:** http://localhost:5000
 - **Frontend:** http://localhost:5173
 
+*(Note: Upon opening the frontend, you will be redirected to the Login page. Create a new account to access the dashboard).*
+
 ---
 
 ## 📡 API Documentation
 
-### Candidate APIs
+### Authentication APIs
+*All subsequent APIs require the `Authorization: Bearer <token>` header.*
 
 | Method | Endpoint                      | Description                    |
 |--------|-------------------------------|--------------------------------|
-| POST   | `/api/candidates`             | Create a new candidate         |
-| GET    | `/api/candidates`             | List candidates (search/filter)|
-| GET    | `/api/candidates/:id`         | Get single candidate           |
-| PUT    | `/api/candidates/:id`         | Update candidate               |
-| DELETE | `/api/candidates/:id`         | Delete candidate               |
+| POST   | `/api/auth/signup`            | Register a new manager         |
+| POST   | `/api/auth/login`             | Login to receive JWT token     |
+
+### Employee APIs
+
+| Method | Endpoint                      | Description                    |
+|--------|-------------------------------|--------------------------------|
+| POST   | `/api/candidates`             | Register a new employee        |
+| GET    | `/api/candidates`             | List employees (search/filter) |
+| GET    | `/api/candidates/:id`         | Get single employee            |
+| PUT    | `/api/candidates/:id`         | Update employee                |
+| DELETE | `/api/candidates/:id`         | Delete employee                |
 | GET    | `/api/candidates/stats/count` | Get total count                |
 
 **Query Parameters for GET /api/candidates:**
-- `search` — Search by name or bio
+- `search` — Search by name or performance notes
 - `skills` — Filter by skills (comma-separated)
-- `minExp` — Minimum experience
-- `maxExp` — Maximum experience
+- `minExp` — Minimum performance rating (1-10)
+- `maxExp` — Maximum performance rating (1-10)
 - `page` — Page number (default: 1)
 - `limit` — Items per page (default: 10)
 
-### Matching APIs
+### Performance Matching APIs
 
 | Method | Endpoint       | Description                   |
 |--------|----------------|-------------------------------|
-| POST   | `/api/match`   | Rule-based candidate matching |
-
-**Request Body:**
-```json
-{
-  "requiredSkills": ["React", "Node.js"],
-  "preferredSkills": ["MongoDB"],
-  "minExperience": 2
-}
-```
+| POST   | `/api/match`   | Rule-based performance eval   |
 
 ### AI APIs
 
 | Method | Endpoint                      | Description                     |
 |--------|-------------------------------|---------------------------------|
-| POST   | `/api/ai/shortlist`           | AI-powered candidate ranking    |
-| POST   | `/api/ai/interview-questions` | Generate interview questions    |
-
-**Shortlist Request Body:**
-```json
-{
-  "requiredSkills": ["React", "Node.js"],
-  "preferredSkills": ["MongoDB"],
-  "minExperience": 2,
-  "jobDescription": "Senior Full-Stack Developer"
-}
-```
+| POST   | `/api/ai/shortlist`           | AI-powered employee evaluation  |
+| POST   | `/api/ai/interview-questions` | Generate growth/review questions|
 
 ---
 
@@ -142,11 +127,11 @@ This starts both:
 
 ### Scoring Formula
 
-```
+```text
 Required Score  = (matchedRequired / totalRequired) × 70
 Preferred Score = (matchedPreferred / totalPreferred) × 20
-Experience Score = meetsMinimum ? 10 : (candidateExp / minExp) × 10
-Total Score     = Required + Preferred + Experience (max 100)
+Performance Rating Score = meetsMinimumRating ? 10 : (employeeRating / minRating) × 10
+Total Score     = Required + Preferred + Performance Rating (max 100)
 ```
 
 ### Match Levels
@@ -161,59 +146,46 @@ Total Score     = Required + Preferred + Experience (max 100)
 
 ## 🤖 AI Features
 
-- **Intelligent Ranking** — AI analyzes candidates beyond keyword matching
-- **Suitability Explanations** — Detailed reasoning for each candidate
-- **Missing Skills Detection** — What candidates lack
-- **Hiring Recommendations** — Strongly Recommend / Recommend / Consider / Not Recommended
-- **Interview Focus Areas** — Suggested topics for interviews
-- **Interview Question Generation** — Custom questions per candidate
+- **Intelligent Evaluation** — AI analyzes employees beyond simple keyword matching
+- **Suitability Explanations** — Detailed reasoning for each employee's performance
+- **Missing Skills Detection** — What employees lack for promotion
+- **Review Recommendations** — Strongly Recommend / Recommend / Consider / Needs Improvement
+- **Growth Focus Areas** — Suggested topics for 1-on-1 performance reviews
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 server/
 ├── config/db.js              → MongoDB connection
-├── models/Candidate.js       → Mongoose schema
+├── models/
+│   ├── Candidate.js          → Employee schema
+│   └── User.js               → Auth schema (Bcrypt)
 ├── services/
 │   ├── candidateService.js   → CRUD business logic
 │   ├── matchService.js       → Scoring algorithm
 │   └── aiService.js          → OpenRouter integration
-├── controllers/              → HTTP handlers
+├── controllers/              → HTTP handlers (Auth, AI, Candidates, Match)
 ├── routes/                   → Express routers
-├── middleware/                → Validation, error handling
-└── utils/seedData.js         → Sample data seeder
+├── middleware/               
+│   ├── authMiddleware.js     → JWT Protection
+│   └── errorHandler.js       → Error handling
+└── index.js                  → App entry point
 
 client/src/
-├── pages/                    → Dashboard, CandidateList, AddCandidate, JobMatch
-├── components/               → Sidebar, Navbar, CandidateCard, MatchScoreBar, etc.
-├── hooks/                    → useCandidates, useMatch
-└── services/api.js           → Axios API client
+├── pages/                    → Dashboard, CandidateList, AddCandidate, JobMatch, Login, Signup
+├── components/               → Sidebar, Navbar, ProtectedRoute, etc.
+├── context/                  
+│   └── AuthContext.jsx       → LocalStorage + JWT state
+└── services/api.js           → Axios API client (with JWT interceptor)
 ```
 
 ---
 
 ## 🚢 Deployment
 
-### Frontend (Vercel)
-
-```bash
-cd client
-npm run build
-# Deploy dist/ to Vercel
-```
-
-### Backend (Render / Railway)
-
-- Set environment variables in the hosting dashboard
-- Entry point: `server/index.js`
-- Build command: `cd server && npm install`
-- Start command: `cd server && npm start`
-
-### Database
-
-- Use [MongoDB Atlas](https://cloud.mongodb.com) for managed hosting
+See the [Deployment Guide](./deployment_guide.md) for step-by-step instructions on deploying the frontend to Vercel and the backend to Render.
 
 ---
 
