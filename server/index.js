@@ -9,6 +9,8 @@ import errorHandler from './middleware/errorHandler.js';
 import candidateRoutes from './routes/candidateRoutes.js';
 import matchRoutes from './routes/matchRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import { protect } from './middleware/authMiddleware.js';
 
 // Load env from project root
 const __filename = fileURLToPath(import.meta.url);
@@ -23,9 +25,10 @@ app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
 app.use(express.json({ limit: '1mb' }));
 
 // ── Routes ───────────────────────────────────────────────────
-app.use('/api/candidates', candidateRoutes);
-app.use('/api/match', matchRoutes);
-app.use('/api/ai', aiRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/candidates', protect, candidateRoutes);
+app.use('/api/match', protect, matchRoutes);
+app.use('/api/ai', protect, aiRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
